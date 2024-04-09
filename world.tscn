@@ -1,0 +1,81 @@
+[gd_scene load_steps=10 format=3 uid="uid://uuc0232qr2da"]
+
+[ext_resource type="Texture2D" uid="uid://drhegvdwk3f0w" path="res://Assets/BVA2/beachbkgIso.png" id="1_o5rwn"]
+[ext_resource type="Texture2D" uid="uid://dr1h24hf052y7" path="res://Assets/BVA2/net0.png" id="2_mt2pm"]
+[ext_resource type="PackedScene" uid="uid://cu2ufqy5t6u40" path="res://player.tscn" id="3_u0irw"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ixaia"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rj160"]
+size = Vector2(6.56662, 355.112)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_4ax3u"]
+b = Vector2(2.08165e-12, 430)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_o5434"]
+a = Vector2(2.08165e-12, 132)
+b = Vector2(400, 132)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_yqsn5"]
+a = Vector2(2.08165e-12, 430)
+b = Vector2(400, 430)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_xsyla"]
+a = Vector2(400, 132)
+b = Vector2(400, 430)
+
+[node name="world" type="Node2D"]
+
+[node name="beach" type="Sprite2D" parent="."]
+position = Vector2(200, 215)
+texture = ExtResource("1_o5rwn")
+
+[node name="player2" parent="." instance=ExtResource("3_u0irw")]
+position = Vector2(310, 280)
+player_num = 2
+dont_move = false
+
+[node name="net" type="Sprite2D" parent="."]
+position = Vector2(204.75, 229.5)
+scale = Vector2(0.855555, 0.855555)
+texture = ExtResource("2_mt2pm")
+hframes = 6
+
+[node name="StaticBody2D" type="StaticBody2D" parent="net"]
+collision_layer = 4
+physics_material_override = SubResource("PhysicsMaterial_ixaia")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="net/StaticBody2D"]
+position = Vector2(-1.79152, 59.5804)
+rotation = -0.0698131
+shape = SubResource("RectangleShape2D_rj160")
+
+[node name="player1" parent="." instance=ExtResource("3_u0irw")]
+position = Vector2(88, 280)
+dont_move = false
+
+[node name="walls" type="Node2D" parent="."]
+
+[node name="left_wall" type="StaticBody2D" parent="walls"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/left_wall"]
+shape = SubResource("SegmentShape2D_4ax3u")
+
+[node name="top_wall" type="StaticBody2D" parent="walls"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/top_wall"]
+shape = SubResource("SegmentShape2D_o5434")
+
+[node name="bottom_wall" type="StaticBody2D" parent="walls"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/bottom_wall"]
+shape = SubResource("SegmentShape2D_yqsn5")
+
+[node name="right_wall" type="StaticBody2D" parent="walls"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/right_wall"]
+shape = SubResource("SegmentShape2D_xsyla")
